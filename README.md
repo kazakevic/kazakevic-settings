@@ -17,9 +17,16 @@ Installation:
 
 * Settings menu can be accessed by this endpoind: `office/settings`
 
-How to get setting value? Just resolve `SettingsService`
-```   
+How use setting?
+ 
+* Create setting using `office/settings` menu.
+* To get value just use facade: `use Kazakevic\Settings\Facades\Settings;` 
+and get value `$value = Settings::get('is_new_feature_enabled');`
+* Or just resolve `SettingsService` and get value:
+```
 public function indexAction(SettingsService $settings)
-    {
-        dd($settings->get('is_page_enabled'));
-    }
+{
+    dd($settings->get('is_new_feature_enabled'));
+}
+```
+
