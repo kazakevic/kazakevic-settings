@@ -1,0 +1,25 @@
+{
+    "name": "kazakevic/settings",
+    "description": "Feature toggle settings for Laravel framework",
+    "minimum-stability": "dev",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "symfony/yaml": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kazakevic\\Settings\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Kazakevic\\Settings\\SettingsServiceProvider"
+            ],
+            "aliases": {
+                "Settings": "Kazakevic\\Settings\\Facades\\Settings"
+            }
+        }
+    }
+}
