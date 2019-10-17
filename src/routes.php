@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-const API_VERSION = 'V1';
-
 //main routes
 Route::prefix('office/')
     ->name('office')
@@ -13,8 +11,8 @@ Route::prefix('office/')
     });
 
 //api routes
-Route::prefix('adm/api/' . API_VERSION)
-    ->name('api.' . API_VERSION . '.' . 'setting.')
+Route::prefix('adm/api/' . 'V1')
+    ->name('api.' . 'V1' . '.' . 'setting.')
     ->namespace('Kazakevic\\Settings\\Http\\Controllers\\Api')
     ->group(function () {
         Route::get('/settings', 'SettingsController@index')->name('index');
