@@ -27,10 +27,14 @@ class SettingsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        include __DIR__.'/routes.php';
         $this->loadViewsFrom(__DIR__.'/resources/views', 'settings');
         $this->publishes([
             __DIR__.'/public' => public_path('kazakevic/settings'),
         ], 'public');
+
+        # load the routes when the app is booted (core routes.php is booted)
+        $this->app->booted(function () {
+            include __DIR__.'/routes.php';
+        });
     }
 }
