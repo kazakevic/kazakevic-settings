@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //main routes
-Route::prefix('office/')
+Route::middleware(['auth', 'isAdmin'])->prefix('office/')
     ->name('office')
     ->namespace('Kazakevic\\Settings\\Http\\Controllers')
     ->group(function () {
