@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 //main routes
-Route::middleware(['web','auth'])->prefix('office/')
+Route::prefix('office/')
     ->name('office')
     ->namespace('Kazakevic\\Settings\\Http\\Controllers')
     ->group(function () {
@@ -11,8 +11,8 @@ Route::middleware(['web','auth'])->prefix('office/')
     });
 
 //api routes
-Route::prefix('adm/api/' . 'V1')
-    ->name('api.' . 'V1' . '.' . 'setting.')
+Route::prefix('adm/api/V1')
+    ->name('api_setting.')
     ->namespace('Kazakevic\\Settings\\Http\\Controllers\\Api')
     ->group(function () {
         Route::get('/settings', 'SettingsController@index')->name('index');
