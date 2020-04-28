@@ -1,31 +1,31 @@
 <template>
     <div>
-        <div class="form-group">
-        </div>
-        <table class="table table-bordered table-striped">
+        <table class="table-auto">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Settings</th>
-                <th>Actions</th>
-                <th width="100">
+            <tr class="border px-4">
+                <th class="px-4 py-2">Name</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2">Settings</th>
+                <th class="px-4 py-2">Actions</th>
+                <th class="w-100">
                     <i class="fas fa-spinner fa-spin" v-if="loading"></i>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(option, index) in options">
-                <td>{{ option.key }}</td>
-                <td>{{ typeToString(option.type) }}</td>
-                <td>
+            <tr v-for="(option, index) in options" class="border">
+                <td class="px-4 py-2">{{ option.key }}</td>
+                <td class="px-4 py-2">{{ typeToString(option.type) }}</td>
+                <td class="px-4 py-2">
                     <div v-if="option.type === 0">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox"
-                                   class="custom-control-input"
-                                   :id="'toggle-'+option.id"
-                                   v-model="option.value"
-                                   @click="toggleOption(option)">
+                            <label>
+                                <input type="checkbox"
+                                       class="custom-control-input"
+                                       :id="'toggle-'+option.id"
+                                       v-model="option.value"
+                                       @click="toggleOption(option)">
+                            </label>
                             <label class="custom-control-label" :for="'toggle-'+option.id">{{ option.value }}</label>
                         </div>
                     </div>
@@ -35,11 +35,11 @@
                         </small>
                     </span>
                 </td>
-                <td>
+                <td class="px-4 py-2">
                     <router-link :to="{name: 'optionEdit', params: {id: option.id}}">
-                        <button class="btn btn-primary btn-sm">e</button>
+                        <button class="bg-blue-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow">e</button>
                     </router-link>
-                    <button class="btn btn-danger btn-sm" v-on:click="deleteEntry(option.id, index)">
+                    <button class="bg-red-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" v-on:click="deleteEntry(option.id, index)">
                         x
                     </button>
                 </td>
@@ -47,14 +47,12 @@
             </tbody>
         </table>
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li
-                    class="page-item"
-                    v-for="(page, index) in getPagesArray(pagination.total, pagination.per_page)"
-                >
-                    <a class="page-link" href="#" @click="setCurrentPage(page)">{{ page }}</a>
-                </li>
-            </ul>
+            <div class="inline-flex my-2">
+            <button  v-for="(page, index) in getPagesArray(pagination.total, pagination.per_page)"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-l" @click="setCurrentPage(page)">
+                {{ page }}
+            </button>
+            </div>
         </nav>
     </div>
 </template>
