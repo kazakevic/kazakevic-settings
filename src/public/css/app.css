@@ -14973,6 +14973,15 @@ input:checked ~ .toggle__dot {
   background-color: #48bb78;
 }
 
+.page-item {
+  margin-right: 0.7rem;
+  background-color: #e2e8f0;
+  padding: 0.2rem 0.3rem 0.2rem 0.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  border-radius: 0.25rem;
+}
+
 @media (min-width: 640px) {
   .sm\:space-y-0 > :not(template) ~ :not(template) {
     --space-y-reverse: 0;

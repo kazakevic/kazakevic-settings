@@ -13,7 +13,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(option, index) in options" class="border">
+            <tr v-for="(option, index) in options.data" class="border">
                 <td class="px-4 py-2">{{ option.key }}</td>
                 <td class="px-4 py-2">{{ typeToString(option.type) }}</td>
                 <td class="px-4 py-2">
@@ -61,13 +61,9 @@
             </tr>
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <div class="inline-flex my-2">
-            <button v-for="(page, index) in getPagesArray(pagination.total, pagination.per_page)"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 mx-1 rounded" @click="setCurrentPage(page)">
-                {{ page }}
-            </button>
-            </div>
+        <nav aria-label="Pages">
+            <pagination :limit="10" class="inline-flex my-2" :data="options" @pagination-change-page="getData">
+            </pagination>
         </nav>
     </div>
 </template>
@@ -76,22 +72,10 @@
     export default {
         data () {
             return {
-                options: [],
+                options: {},
                 loading: false,
                 items: [],
                 current_page: 1,
-                pagination: {
-                    total: 0,
-                    per_page: 0,
-                    last_page: 0,
-                    first_page_url: '',
-                    last_page_url: '',
-                    next_page_url: '',
-                    prev_page_url: null,
-                    path: "",
-                    from: 1,
-                    to: 15,
-                },
                 settingSearch: ''
             }
         },
@@ -102,16 +86,9 @@
             getData(page = 1) {
                 let app = this;
                 const url = '/adm/api/V1/settings/?page=';
-                axios.get(url + app.current_page)
+                axios.get(url + page)
                     .then(function (resp) {
-                        app.options = resp.data.data;
-                        app.pagination.total = resp.data.total;
-                        app.pagination.from = resp.data.from;
-                        app.pagination.to = resp.data.to;
-                        app.pagination.path = resp.data.path;
-                        app.pagination.current_page = resp.data.current_page;
-                        app.pagination.last_page = resp.data.last_page;
-                        app.pagination.per_page = resp.data.per_page;
+                        app.options = resp.data;
                     })
                     .catch(function (resp) {
                         console.log('Could not load options');
@@ -152,19 +129,6 @@
                     case 3:
                         return 'Object';
                 }
-            },
-            getPagesArray(total, perPage) {
-                let pagesCount = Math.ceil(total / perPage);
-                let pages = [];
-                for (let i = 1; i <= pagesCount; i++ ) {
-                    pages.push(i);
-                }
-                return pages;
-            },
-            setCurrentPage(page) {
-                let app = this;
-                app.current_page = page;
-                this.getData(page);
             },
             searchByQuery() {
                 let app = this;

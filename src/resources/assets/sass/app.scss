@@ -12,3 +12,11 @@ input:checked ~ .toggle__dot {
   transform: translateX(100%);
   background-color: #48bb78;
 }
+.page-item {
+  margin-right: .7rem;
+  background-color: #e2e8f0;
+  padding: .2rem .3rem .2rem .3rem;
+  font-weight: 700;
+  color: #2d3748;
+  border-radius: .25rem;
+}
