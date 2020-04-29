@@ -1,71 +1,94 @@
 <template>
-    <div>
-        <div class="card">
-            <div class="card-header">
-                Create new option
+    <div class="w-full max-w-xs">
+    <form v-on:submit="saveForm($event)" class="w-full max-w-lg">
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="setting-key">
+                    Setting key
+                </label>
+                <input v-model="option.key"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="setting-key" type="text">
             </div>
-            <div class="card-body">
-                <div class="container-fluid">
-                    <form v-on:submit="saveForm($event)">
-                        <div class="row">
-                            <div class="col-xs-12 form-group">
-                                <label class="control-label">Option key</label>
-                                <input type="text" v-model="option.key" class="form-control">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 form-group">
-                                <label class="control-label">Option type</label>
-                                <div class="btn-group" role="group">
-                                    <button
-                                        v-for="(type, index) in types"
-                                        type="button"
-                                        class="btn btn-outline-primary"
-                                        v-bind:class="{ active: option.type === index }"
-                                        v-on:click="option.type = index"
-                                    >{{ type }}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 form-group">
-                                <div v-if="showTextArea">
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+                    Type:
+                </label>
+                <select v-model="option.type"
+                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                    <option
+                            v-for="(type, index) in types"
+                            v-bind:value="type.id">
+                        {{ type.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="setting-value">
+                    Value:
+                </label>
+                <div v-if="showTextArea">
                                     <textarea
-                                        v-model="option.value"
-                                        cols="50"
-                                        rows="6"
-                                        class="form-control"
+                                            name="optionType"
+                                            id="setting-value"
+                                            cols="50"
+                                            rows="6"
+                                            v-model="option.value"
+                                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     ></textarea>
-                                </div>
-                                <div v-else-if="showSwitch">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="toggle" v-model="option.value">
-                                        <label class="custom-control-label" for="toggle">{{ option.value }}</label>
-                                    </div>
-                                </div>
-                                <div v-else>
-                                    <input type="text" v-model="option.value" class="form-control">
-                                </div>
-                            </div>
+                </div>
+                <div v-else-if="showSwitch">
+
+                    <!-- Toggle Button -->
+                    <label
+                            :for="'toggle-'+option.id"
+                            class="flex items-center cursor-pointer"
+                    ></label>
+                    <!-- toggle -->
+                    <div class="relative">
+                        <!-- input -->
+                        <input id="toogleA" type="checkbox" class="hidden"
+                               :id="'toggle-'+option.id"
+                               v-model="option.value"
+                        />
+                        <!-- line -->
+                        <div
+                                @click="option.value = !option.value"
+                                class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                        <!-- dot -->
+                        <div
+                                @click="option.value = !option.value"
+                                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0">
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12 form-group">
-                                <button class="btn btn-success">Create</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+                </div>
+                <div v-else>
+                    <label class="text-gray-700" for="setting-value-simple"></label>
+                    <input type="text" v-model="option.value" class="form-control" id="setting-value-simple">
                 </div>
             </div>
         </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <button class="bg-green-400 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">Save</button>
+            </div>
+        </div>
+        </form>
     </div>
+
 </template>
 
 <script>
+    import settingData from './includes/settingsTypes';
     export default {
         data () {
             return {
-                types: ['Bool', 'Int', 'String', 'Object'],
+                types: settingData.types,
                 option: {
                     key: '',
                     value: '',

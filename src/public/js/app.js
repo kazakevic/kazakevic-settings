@@ -1697,6 +1697,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _includes_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./includes/settingsTypes */ "./src/resources/assets/js/components/admin/options/includes/settingsTypes.js");
 //
 //
 //
@@ -1760,10 +1761,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      types: ['Bool', 'Int', 'String', 'Object'],
+      types: _includes_settingsTypes__WEBPACK_IMPORTED_MODULE_0__["default"].types,
       option: {
         key: '',
         value: '',
@@ -1810,6 +1834,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _includes_settingsTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./includes/settingsTypes */ "./src/resources/assets/js/components/admin/options/includes/settingsTypes.js");
 //
 //
 //
@@ -1892,6 +1917,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var app = this;
@@ -1907,19 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       optionId: null,
-      types: [{
-        id: 0,
-        name: 'Bool'
-      }, {
-        id: 1,
-        name: 'Int'
-      }, {
-        id: 2,
-        name: 'Text'
-      }, {
-        id: 3,
-        name: 'Object'
-      }],
+      types: _includes_settingsTypes__WEBPACK_IMPORTED_MODULE_0__["default"].types,
       option: {
         key: '',
         value: '',
@@ -3199,211 +3213,263 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _vm._v("\n            Create new option\n        ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c(
-            "form",
-            {
+  return _c("div", { staticClass: "w-full max-w-xs" }, [
+    _c(
+      "form",
+      {
+        staticClass: "w-full max-w-lg",
+        on: {
+          submit: function($event) {
+            return _vm.saveForm($event)
+          }
+        }
+      },
+      [
+        _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+          _c("div", { staticClass: "w-full px-3" }, [
+            _c(
+              "label",
+              {
+                staticClass: "block text-gray-700 text-sm font-bold mb-2",
+                attrs: { for: "setting-key" }
+              },
+              [_vm._v("\n                Setting key\n            ")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.option.key,
+                  expression: "option.key"
+                }
+              ],
+              staticClass:
+                "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+              attrs: { id: "setting-key", type: "text" },
+              domProps: { value: _vm.option.key },
               on: {
-                submit: function($event) {
-                  return _vm.saveForm($event)
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.option, "key", $event.target.value)
                 }
               }
-            },
-            [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xs-12 form-group" }, [
-                  _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Option key")
-                  ]),
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+          _c("div", { staticClass: "w-full px-3" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                attrs: { for: "grid-state" }
+              },
+              [_vm._v("\n                Type:\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.option.type,
+                    expression: "option.type"
+                  }
+                ],
+                staticClass:
+                  "block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                attrs: { id: "grid-state" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.option,
+                      "type",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              _vm._l(_vm.types, function(type, index) {
+                return _c("option", { domProps: { value: type.id } }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(type.name) +
+                      "\n                "
+                  )
+                ])
+              }),
+              0
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+          _c("div", { staticClass: "w-full px-3" }, [
+            _c(
+              "label",
+              {
+                staticClass:
+                  "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                attrs: { for: "setting-value" }
+              },
+              [_vm._v("\n                Value:\n            ")]
+            ),
+            _vm._v(" "),
+            _vm.showTextArea
+              ? _c("div", [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.option.value,
+                        expression: "option.value"
+                      }
+                    ],
+                    staticClass:
+                      "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                    attrs: {
+                      name: "optionType",
+                      id: "setting-value",
+                      cols: "50",
+                      rows: "6"
+                    },
+                    domProps: { value: _vm.option.value },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.option, "value", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              : _vm.showSwitch
+              ? _c("div", [
+                  _c("label", {
+                    staticClass: "flex items-center cursor-pointer",
+                    attrs: { for: "toggle-" + _vm.option.id }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.option.value,
+                          expression: "option.value"
+                        }
+                      ],
+                      staticClass: "hidden",
+                      attrs: {
+                        id: "toogleA",
+                        type: "checkbox",
+                        id: "toggle-" + _vm.option.id
+                      },
+                      domProps: {
+                        checked: Array.isArray(_vm.option.value)
+                          ? _vm._i(_vm.option.value, null) > -1
+                          : _vm.option.value
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.option.value,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                _vm.$set(_vm.option, "value", $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                _vm.$set(
+                                  _vm.option,
+                                  "value",
+                                  $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                )
+                            }
+                          } else {
+                            _vm.$set(_vm.option, "value", $$c)
+                          }
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass:
+                        "toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner",
+                      on: {
+                        click: function($event) {
+                          _vm.option.value = !_vm.option.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass:
+                        "toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0",
+                      on: {
+                        click: function($event) {
+                          _vm.option.value = !_vm.option.value
+                        }
+                      }
+                    })
+                  ])
+                ])
+              : _c("div", [
+                  _c("label", {
+                    staticClass: "text-gray-700",
+                    attrs: { for: "setting-value-simple" }
+                  }),
                   _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.option.key,
-                        expression: "option.key"
+                        value: _vm.option.value,
+                        expression: "option.value"
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.option.key },
+                    attrs: { type: "text", id: "setting-value-simple" },
+                    domProps: { value: _vm.option.value },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.option, "key", $event.target.value)
+                        _vm.$set(_vm.option, "value", $event.target.value)
                       }
                     }
                   })
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xs-12 form-group" }, [
-                  _c("label", { staticClass: "control-label" }, [
-                    _vm._v("Option type")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "btn-group", attrs: { role: "group" } },
-                    _vm._l(_vm.types, function(type, index) {
-                      return _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          class: { active: _vm.option.type === index },
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              _vm.option.type = index
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            _vm._s(type) + "\n                                "
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-xs-12 form-group" }, [
-                  _vm.showTextArea
-                    ? _c("div", [
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.option.value,
-                              expression: "option.value"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { cols: "50", rows: "6" },
-                          domProps: { value: _vm.option.value },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.option, "value", $event.target.value)
-                            }
-                          }
-                        })
-                      ])
-                    : _vm.showSwitch
-                    ? _c("div", [
-                        _c(
-                          "div",
-                          { staticClass: "custom-control custom-switch" },
-                          [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.option.value,
-                                  expression: "option.value"
-                                }
-                              ],
-                              staticClass: "custom-control-input",
-                              attrs: { type: "checkbox", id: "toggle" },
-                              domProps: {
-                                checked: Array.isArray(_vm.option.value)
-                                  ? _vm._i(_vm.option.value, null) > -1
-                                  : _vm.option.value
-                              },
-                              on: {
-                                change: function($event) {
-                                  var $$a = _vm.option.value,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = null,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        _vm.$set(
-                                          _vm.option,
-                                          "value",
-                                          $$a.concat([$$v])
-                                        )
-                                    } else {
-                                      $$i > -1 &&
-                                        _vm.$set(
-                                          _vm.option,
-                                          "value",
-                                          $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1))
-                                        )
-                                    }
-                                  } else {
-                                    _vm.$set(_vm.option, "value", $$c)
-                                  }
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "label",
-                              {
-                                staticClass: "custom-control-label",
-                                attrs: { for: "toggle" }
-                              },
-                              [_vm._v(_vm._s(_vm.option.value))]
-                            )
-                          ]
-                        )
-                      ])
-                    : _c("div", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.option.value,
-                              expression: "option.value"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.option.value },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.option, "value", $event.target.value)
-                            }
-                          }
-                        })
-                      ])
-                ])
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
-            ]
-          )
-        ])
-      ])
-    ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -3411,9 +3477,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-xs-12 form-group" }, [
-        _c("button", { staticClass: "btn btn-success" }, [_vm._v("Create")])
+    return _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+      _c("div", { staticClass: "w-full px-3" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "bg-green-400 hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          },
+          [_vm._v("Save")]
+        )
       ])
     ])
   }
@@ -3459,11 +3532,7 @@ var render = function() {
                 staticClass: "block text-gray-700 text-sm font-bold mb-2",
                 attrs: { for: "setting-key" }
               },
-              [
-                _vm._v(
-                  "\n                            Option key\n                        "
-                )
-              ]
+              [_vm._v("\n                Option key\n            ")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -3500,11 +3569,7 @@ var render = function() {
                   "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
                 attrs: { for: "grid-state" }
               },
-              [
-                _vm._v(
-                  "\n                            Type:\n                        "
-                )
-              ]
+              [_vm._v("\n                Type:\n            ")]
             ),
             _vm._v(" "),
             _c(
@@ -3540,11 +3605,7 @@ var render = function() {
                   "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
                 attrs: { for: "setting-value" }
               },
-              [
-                _vm._v(
-                  "\n                                Value:\n                            "
-                )
-              ]
+              [_vm._v("\n                    Value:\n                ")]
             ),
             _vm._v(" "),
             _vm.showTextArea
@@ -19241,6 +19302,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingsIndex_vue_vue_type_template_id_b08ab1bc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./src/resources/assets/js/components/admin/options/includes/settingsTypes.js":
+/*!************************************************************************************!*\
+  !*** ./src/resources/assets/js/components/admin/options/includes/settingsTypes.js ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  types: [{
+    id: 0,
+    name: 'Bool'
+  }, {
+    id: 1,
+    name: 'Int'
+  }, {
+    id: 2,
+    name: 'Text'
+  }, {
+    id: 3,
+    name: 'Object'
+  }]
+});
 
 /***/ }),
 
