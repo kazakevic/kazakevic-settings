@@ -13,9 +13,8 @@ Installation:
 
 * `composer require kazakevic/settings`
 * `php artisan migrate --seed`
-* `php artisan vendor:publish` (and find  Kazakevic\Settings\SettingsServiceProvider)
 
-* Settings menu can be accessed by this endpoind: `office/settings`
+* Settings menu can be accessed by this url: `office/settings`
 
 How use setting?
  
