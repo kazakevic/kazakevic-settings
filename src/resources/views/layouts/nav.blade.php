@@ -1,14 +1,19 @@
-<nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
+<ul class="flex">
+    <li class="mr-3 mt-2">
         <router-link to="/">
-            <a href="#" class="btn btn-outline-info btn-sm mr-2">Settings</a>
+            <a href="#"
+               class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-1 px-3"
+            >Settings</a>
         </router-link>
         <router-link to="/settings/create">
-            <a href="#" class="btn btn-outline-success btn-sm mr-2">Create Setting</a>
+            <a href="#"
+               class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-1 px-3"
+            >Create Setting</a>
         </router-link>
-    </form>
-    <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" v-model="settingSearch" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="searchByQuery()">Search</button>
-    </form>
-</nav>
+    </li>
+    <li class="flex justify-end mt-2">
+        <input v-model="searchQuery"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="setting-search" type="text" placeholder="Search"
+        >
+    </li>
+</ul>

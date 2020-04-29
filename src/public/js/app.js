@@ -2049,14 +2049,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       options: {},
       loading: false,
       items: [],
-      current_page: 1,
-      settingSearch: ''
+      current_page: 1
     };
   },
   mounted: function mounted() {
@@ -2065,9 +2065,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getData: function getData() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      var q = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var app = this;
-      var url = '/adm/api/V1/settings/?page=';
-      axios.get(url + page).then(function (resp) {
+      var url = '/adm/api/V1/settings/?page=' + page;
+
+      if (q) {
+        url = url + '&q=' + q;
+      }
+
+      axios.get(url).then(function (resp) {
         app.options = resp.data;
       })["catch"](function (resp) {
         console.log('Could not load options');
@@ -2105,10 +2111,12 @@ __webpack_require__.r(__webpack_exports__);
         case 3:
           return 'Object';
       }
-    },
-    searchByQuery: function searchByQuery() {
-      var app = this;
-      console.log(app.settingSearch);
+    }
+  },
+  computed: {
+    getSearchQuery: function getSearchQuery() {
+      var query = this.$root.$data.searchQuery;
+      this.getData(1, query);
     }
   }
 });
@@ -3986,6 +3994,27 @@ var render = function() {
         0
       )
     ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.getSearchQuery,
+          expression: "getSearchQuery"
+        }
+      ],
+      attrs: { type: "hidden", name: "" },
+      domProps: { value: _vm.getSearchQuery },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.getSearchQuery = $event.target.value
+        }
+      }
+    }),
     _vm._v(" "),
     _c(
       "nav",
@@ -19093,7 +19122,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    searchQuery: ''
+  }
 });
 
 /***/ }),

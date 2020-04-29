@@ -61,6 +61,7 @@
             </tr>
             </tbody>
         </table>
+        <input type="hidden" name="" v-model="getSearchQuery">
         <nav aria-label="Pages">
             <pagination :limit="10" class="inline-flex my-2" :data="options" @pagination-change-page="getData">
             </pagination>
@@ -76,17 +77,19 @@
                 loading: false,
                 items: [],
                 current_page: 1,
-                settingSearch: ''
             }
         },
         mounted() {
             this.getData();
         },
         methods: {
-            getData(page = 1) {
+            getData(page = 1, q = null) {
                 let app = this;
-                const url = '/adm/api/V1/settings/?page=';
-                axios.get(url + page)
+                let url = '/adm/api/V1/settings/?page=' + page;
+                if (q) {
+                    url = url + '&q=' + q;
+                }
+                axios.get(url)
                     .then(function (resp) {
                         app.options = resp.data;
                     })
@@ -130,9 +133,11 @@
                         return 'Object';
                 }
             },
-            searchByQuery() {
-                let app = this;
-                console.log(app.settingSearch)
+        },
+        computed: {
+            getSearchQuery : function() {
+                let query = this.$root.$data.searchQuery
+                this.getData(1, query);
             }
         }
     }

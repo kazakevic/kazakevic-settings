@@ -2,13 +2,20 @@
 
 namespace Kazakevic\Settings\Repository;
 
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Kazakevic\Settings\Models\Setting;
 
 class SettingsRepository
 {
-    public function get(int $limit = 10)
+    public function get(Request $request, int $limit = 10)
     {
-        return Setting::paginate($limit);
+        $result = Setting::paginate($limit);
+        if ($request->has('q')) {
+            $result = $this->findByQuery($request->get('q'))->paginate($limit);
+        }
+        return $result;
     }
 
     public function findById(int $id)
@@ -18,11 +25,6 @@ class SettingsRepository
 
     public function findByQuery(string $query)
     {
-        $result = [];
-        $settings = Setting::where('key', 'like', '%' . $query . '%')->get();
-        if (!empty($settings)) {
-            $result = $settings;
-        }
-        return $settings;
+        return Setting::where('key', 'like', '%' . $query . '%');
     }
 }

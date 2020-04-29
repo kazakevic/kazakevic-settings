@@ -14,9 +14,9 @@ class SettingsController extends Controller
 {
     private const LIMIT = 10;
 
-    public function index(SettingsRepository $settingsRepository): JsonResponse
+    public function index(Request $request, SettingsRepository $settingsRepository): JsonResponse
     {
-        $settings = $settingsRepository->get(self::LIMIT);
+        $settings = $settingsRepository->get($request, self::LIMIT);
 
         foreach ($settings as $setting) {
             switch ($setting->type) {
