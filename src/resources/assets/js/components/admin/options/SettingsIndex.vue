@@ -18,16 +18,29 @@
                 <td class="px-4 py-2">{{ typeToString(option.type) }}</td>
                 <td class="px-4 py-2">
                     <div v-if="option.type === 0">
-                        <div class="custom-control custom-switch">
-                            <label>
-                                <input type="checkbox"
-                                       class="custom-control-input"
+                        <!-- Toggle Button -->
+                        <label
+                                :for="'toggle-'+option.id"
+                                class="flex items-center cursor-pointer"
+                        ></label>
+                            <!-- toggle -->
+                            <div class="relative">
+                                <!-- input -->
+                                <input id="toogleA" type="checkbox" class="hidden"
                                        :id="'toggle-'+option.id"
                                        v-model="option.value"
-                                       @click="toggleOption(option)">
-                            </label>
-                            <label class="custom-control-label" :for="'toggle-'+option.id">{{ option.value }}</label>
-                        </div>
+                                />
+                                <!-- line -->
+                                <div
+                                        @click="toggleOption(option)"
+                                        class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                <!-- dot -->
+                                <div
+                                        @click="toggleOption(option)"
+                                        class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+                                >
+                                </div>
+                            </div>
                     </div>
                     <span v-if=" option.type !== 0 ">
                         <small>
@@ -37,10 +50,12 @@
                 </td>
                 <td class="px-4 py-2">
                     <router-link :to="{name: 'optionEdit', params: {id: option.id}}">
-                        <button class="bg-blue-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow">e</button>
+                        <button class="bg-blue-400 hover:bg-blue-200 text-blue-800 py-1 px-2 mb-2 border border-gray-100 rounded shadow">
+                            <svg class="fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"/></svg>
+                        </button>
                     </router-link>
-                    <button class="bg-red-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow" v-on:click="deleteEntry(option.id, index)">
-                        x
+                    <button class="bg-red-400 hover:bg-red-200 text-gray-800 py-1 px-2 border border-gray-100 rounded shadow" v-on:click="deleteEntry(option.id, index)">
+                        <svg class="fill-current w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 10l7-7h13v14H7l-7-7zm14.41 0l2.13-2.12-1.42-1.42L13 8.6l-2.12-2.13-1.42 1.42L11.6 10l-2.13 2.12 1.42 1.42L13 11.4l2.12 2.13 1.42-1.42L14.4 10z"/></svg>
                     </button>
                 </td>
             </tr>
@@ -48,8 +63,8 @@
         </table>
         <nav aria-label="Page navigation example">
             <div class="inline-flex my-2">
-            <button  v-for="(page, index) in getPagesArray(pagination.total, pagination.per_page)"
-                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-l" @click="setCurrentPage(page)">
+            <button v-for="(page, index) in getPagesArray(pagination.total, pagination.per_page)"
+                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 mx-1 rounded" @click="setCurrentPage(page)">
                 {{ page }}
             </button>
             </div>
@@ -66,16 +81,16 @@
                 items: [],
                 current_page: 1,
                 pagination: {
-                    "total": 0,
-                    "per_page": 0,
-                    "last_page": 0,
-                    "first_page_url": "",
-                    "last_page_url": "",
-                    "next_page_url": "",
-                    "prev_page_url": null,
-                    "path": "",
-                    "from": 1,
-                    "to": 15,
+                    total: 0,
+                    per_page: 0,
+                    last_page: 0,
+                    first_page_url: '',
+                    last_page_url: '',
+                    next_page_url: '',
+                    prev_page_url: null,
+                    path: "",
+                    from: 1,
+                    to: 15,
                 },
                 settingSearch: ''
             }

@@ -1876,6 +1876,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var app = this;
@@ -1920,6 +1936,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.patch(url + app.optionId, newOption).then(function (resp) {
         app.$router.replace('/');
       })["catch"](function (resp) {});
+    },
+    toggleOption: function toggleOption() {
+      var app = this;
+      app.option.value = !app.option.value;
     }
   },
   computed: {
@@ -2004,6 +2024,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2012,16 +2047,16 @@ __webpack_require__.r(__webpack_exports__);
       items: [],
       current_page: 1,
       pagination: {
-        "total": 0,
-        "per_page": 0,
-        "last_page": 0,
-        "first_page_url": "",
-        "last_page_url": "",
-        "next_page_url": "",
-        "prev_page_url": null,
-        "path": "",
-        "from": 1,
-        "to": 15
+        total: 0,
+        per_page: 0,
+        last_page: 0,
+        first_page_url: '',
+        last_page_url: '',
+        next_page_url: '',
+        prev_page_url: null,
+        path: "",
+        from: 1,
+        to: 15
       },
       settingSearch: ''
     };
@@ -2989,7 +3024,12 @@ var render = function() {
                 ])
               : _vm.showSwitch
               ? _c("div", [
-                  _c("div", { staticClass: "custom-control custom-switch" }, [
+                  _c("label", {
+                    staticClass: "flex items-center cursor-pointer",
+                    attrs: { for: "toggle-" + _vm.option.id }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "relative" }, [
                     _c("input", {
                       directives: [
                         {
@@ -2999,9 +3039,12 @@ var render = function() {
                           expression: "option.value"
                         }
                       ],
-                      staticClass:
-                        "shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
-                      attrs: { type: "checkbox", id: "toggle" },
+                      staticClass: "hidden",
+                      attrs: {
+                        id: "toogleA",
+                        type: "checkbox",
+                        id: "toggle-" + _vm.option.id
+                      },
                       domProps: {
                         checked: Array.isArray(_vm.option.value)
                           ? _vm._i(_vm.option.value, null) > -1
@@ -3033,14 +3076,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c(
-                      "label",
-                      {
-                        staticClass: "text-gray-700 mx-2",
-                        attrs: { for: "toggle" }
-                      },
-                      [_vm._v(_vm._s(_vm.option.value))]
-                    )
+                    _c("div", {
+                      staticClass:
+                        "toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner",
+                      on: { click: _vm.toggleOption }
+                    }),
+                    _vm._v(" "),
+                    _c("div", {
+                      staticClass:
+                        "toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0",
+                      on: { click: _vm.toggleOption }
+                    })
                   ])
                 ])
               : _c("div", [
@@ -3154,67 +3200,77 @@ var render = function() {
             _c("td", { staticClass: "px-4 py-2" }, [
               option.type === 0
                 ? _c("div", [
-                    _c("div", { staticClass: "custom-control custom-switch" }, [
-                      _c("label", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: option.value,
-                              expression: "option.value"
-                            }
-                          ],
-                          staticClass: "custom-control-input",
-                          attrs: {
-                            type: "checkbox",
-                            id: "toggle-" + option.id
-                          },
-                          domProps: {
-                            checked: Array.isArray(option.value)
-                              ? _vm._i(option.value, null) > -1
-                              : option.value
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.toggleOption(option)
-                            },
-                            change: function($event) {
-                              var $$a = option.value,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(option, "value", $$a.concat([$$v]))
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      option,
-                                      "value",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
+                    _c("label", {
+                      staticClass: "flex items-center cursor-pointer",
+                      attrs: { for: "toggle-" + option.id }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "relative" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: option.value,
+                            expression: "option.value"
+                          }
+                        ],
+                        staticClass: "hidden",
+                        attrs: {
+                          id: "toogleA",
+                          type: "checkbox",
+                          id: "toggle-" + option.id
+                        },
+                        domProps: {
+                          checked: Array.isArray(option.value)
+                            ? _vm._i(option.value, null) > -1
+                            : option.value
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = option.value,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(option, "value", $$a.concat([$$v]))
                               } else {
-                                _vm.$set(option, "value", $$c)
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    option,
+                                    "value",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
                               }
+                            } else {
+                              _vm.$set(option, "value", $$c)
                             }
                           }
-                        })
-                      ]),
+                        }
+                      }),
                       _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "toggle-" + option.id }
-                        },
-                        [_vm._v(_vm._s(option.value))]
-                      )
+                      _c("div", {
+                        staticClass:
+                          "toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner",
+                        on: {
+                          click: function($event) {
+                            return _vm.toggleOption(option)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", {
+                        staticClass:
+                          "toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0",
+                        on: {
+                          click: function($event) {
+                            return _vm.toggleOption(option)
+                          }
+                        }
+                      })
                     ])
                   ])
                 : _vm._e(),
@@ -3248,9 +3304,28 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "bg-blue-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow"
+                          "bg-blue-400 hover:bg-blue-200 text-blue-800 py-1 px-2 mb-2 border border-gray-100 rounded shadow"
                       },
-                      [_vm._v("e")]
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "fill-current w-4 h-4",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              viewBox: "0 0 20 20"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M12.3 3.7l4 4L4 20H0v-4L12.3 3.7zm1.4-1.4L16 0l4 4-2.3 2.3-4-4z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
                     )
                   ]
                 ),
@@ -3259,14 +3334,33 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "bg-red-300 hover:bg-gray-100 text-gray-800 font-semibold py-1 px-2 border border-gray-400 rounded shadow",
+                      "bg-red-400 hover:bg-red-200 text-gray-800 py-1 px-2 border border-gray-100 rounded shadow",
                     on: {
                       click: function($event) {
                         return _vm.deleteEntry(option.id, index)
                       }
                     }
                   },
-                  [_vm._v("\n                    x\n                ")]
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "fill-current w-4 h-4",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          viewBox: "0 0 20 20"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M0 10l7-7h13v14H7l-7-7zm14.41 0l2.13-2.12-1.42-1.42L13 8.6l-2.12-2.13-1.42 1.42L11.6 10l-2.13 2.12 1.42 1.42L13 11.4l2.12 2.13 1.42-1.42L14.4 10z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
                 )
               ],
               1
@@ -3288,7 +3382,7 @@ var render = function() {
               "button",
               {
                 staticClass:
-                  "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded-l",
+                  "bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 mx-1 rounded",
                 on: {
                   click: function($event) {
                     return _vm.setCurrentPage(page)

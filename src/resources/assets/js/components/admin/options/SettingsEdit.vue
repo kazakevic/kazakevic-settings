@@ -40,12 +40,28 @@
                                     ></textarea>
                                 </div>
                                 <div v-else-if="showSwitch">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox"
-                                               class="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                               id="toggle"
-                                               v-model="option.value">
-                                        <label class="text-gray-700 mx-2" for="toggle">{{ option.value }}</label>
+
+                                    <!-- Toggle Button -->
+                                    <label
+                                            :for="'toggle-'+option.id"
+                                            class="flex items-center cursor-pointer"
+                                    ></label>
+                                    <!-- toggle -->
+                                    <div class="relative">
+                                        <!-- input -->
+                                        <input id="toogleA" type="checkbox" class="hidden"
+                                               :id="'toggle-'+option.id"
+                                               v-model="option.value"
+                                        />
+                                        <!-- line -->
+                                        <div
+                                                @click="toggleOption"
+                                                class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                        <!-- dot -->
+                                        <div
+                                                @click="toggleOption"
+                                                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0">
+                                        </div>
                                     </div>
                                 </div>
                                 <div v-else>
@@ -107,7 +123,11 @@
                     })
                     .catch(function (resp) {
                     });
-            }
+            },
+            toggleOption() {
+                let app = this;
+                app.option.value = !app.option.value;
+            },
         },
         computed: {
             showTextArea: function () {
