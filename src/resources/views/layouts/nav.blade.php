@@ -2,12 +2,12 @@
     <li class="mr-3 mt-2">
         <router-link to="/">
             <a href="#"
-               class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-1 px-3"
+               class="inline-block border border-blue-200 rounded hover:border-blue-600 text-black-500 hover:bg-blue-300 py-1 px-3"
             >Settings</a>
         </router-link>
         <router-link to="/settings/create">
             <a href="#"
-               class="inline-block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-1 px-3"
+               class="inline-block border border-green-200 rounded hover:border-green-600 text-black-500 hover:bg-green-300 py-1 px-3"
             >Create Setting</a>
         </router-link>
     </li>

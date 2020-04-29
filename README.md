@@ -1,6 +1,6 @@
 # kazakevic-settings
 
-![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/kazakevic/kazakevic-settings/master/depot/ss.png)
+![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/kazakevic/kazakevic-settings/master/depot/ss-new.png)
 
 Simple feature toggle for Laravel Framework. 🚁
 
