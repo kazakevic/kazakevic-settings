@@ -1,4 +1,4 @@
-<ul class="flex">
+<ul class="flex ml-2">
     <li class="mr-3 mt-2">
         <router-link to="/">
             <a href="#"
